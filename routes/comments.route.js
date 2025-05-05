@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
   const comments = await readDB(RESOURCE);
 
   const newComment = {
-    id: ++uniqID,
+    id: (comments[comments.length - 1].id ?? 0) + 1,
     comment: req.body.comment,
   };
   comments.push(newComment);
@@ -66,6 +66,7 @@ router.put("/:id", async (req, res) => {
     return;
   }
   comment.comment = req.body.comment;
+  await writeFile(RESOURCE, comments);
 
   res.json({
     status: "success",
@@ -86,6 +87,7 @@ router.delete("/:id", async (req, res) => {
     return;
   }
   comments.splice(index, 1);
+  await writeFile(RESOURCE, comments);
   res.status(204).send();
 });
 
