@@ -18,7 +18,7 @@ async function writeFile(resource, data) {
 
   await fs.writeFile(DB_FILE, JSON.stringify(db, null, 2));
 }
-writeFile("post", [{ id: 1, name: "tieu de blog" }]);
+// writeFile("post", [{ id: 1, name: "tieu de blog" }]);
 
 module.exports = {
   readDB,
